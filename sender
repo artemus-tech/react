@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Robo</title></head>
+<body>
+<form method="post">
+<input type="text" name="message">
+<input type="Submit" name="submit">
+<form>
+</body>
+</html>
+
+<?php
+
+error_reporting(E_ALL & ~E_NOTICE);
+
+if(isset($_POST["submit"]))
+{
+
+
+
+$data = [
+    'phone' => '+381638937663', // Receivers phone
+    'body' => $_POST["message"],//'Hello, Dijana. I\'m Robo created by Arten especially for you. I will manage our schedule. When we have a lesson tomorrow?', // Message
+    'author'=>"RoboArtem"
+];
+      
+
+$json = json_encode($data); // Encode data to JSON
+// URL for request POST /message
+$token = 'eny19rtxapewm5nc';
+$instanceId = '368041';
+$url = 'https://api.chat-api.com/instance'.$instanceId.'/message?token='.$token;
+// Make a POST request
+$options = stream_context_create(['http' => [
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/json',
+        'content' => $json
+    ]
+]);
+// Send a request
+$result = file_get_contents($url, false, $options);
+echo "\n";
+echo "\n";
+echo "\n";
+echo "\n";
+echo "\n";
+print_r($result); 
+}
+
+?>
